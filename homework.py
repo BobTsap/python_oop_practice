@@ -1,3 +1,6 @@
+from typing import Type
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -56,7 +59,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        pass
+        raise NotImplementedError
 
 
 class Running(Training):
@@ -132,11 +135,11 @@ class Swimming(Training):
                 * self.count_pool / self.M_IN_KM / self.duration)
 
 
-def read_package(workout_type: str,
-                 data: list
-                 ) -> Training:
+def read_package(
+        workout_type: str,
+        data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    type_training: dict[str, Training] = {
+    type_training: dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
